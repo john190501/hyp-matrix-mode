@@ -1,51 +1,21 @@
 ---
 version: 0.1
-globalTimeout: 150
-testSuiteTimeout: 150
-testSuiteStep: 150
-
 runson: ${matrix.os}
 
-concurrency: 8
 combineTasksInMatrixMode: true
-
 retryOnFailure: true
 maxRetries: 1
 
-env:
-  CACHE_DIR: m2_cache_dir
-
-cacheKey: '{{ checksum "pom.xml" }}'
-cacheDirectories:
-  - .m2
-
 matrix:
-  tests: ["Test_1", "Test_2", "Test_3", "Test_4" ]
+  tests: ["Test_1", "Test_2" ]
   browser: ["Chrome", "Firefox"]
+  version: ["latest", "beta"]
   os: [linux]
 
-shell: bash
-
 pre:
-  - mvn -Dmaven.repo.local=./.m2 dependency:resolve
-
-post:
-  - cat yaml/hyp-matrix-mode-linux.yaml
-
-mergeArtifacts: true
-
-uploadArtefacts:
- - name: ExecutionSnapshots
-   path:
-    - target/surefire-reports/html/**
-
-report: true
-partialReports:
-  location: target/surefire-reports/html
-  type: html
-  frameworkName: extent
+  - mvn dependency:resolve
 
 testSuites:
   - mvn test -Dplatname=linux -Dmaven.repo.local=m2_cache_dir -DTest=$tests
 
-jobLabel: [Matrix, Linux, Firefox, Chrome]
+jobLabel: [Matrix Mode]
