@@ -8,7 +8,7 @@ maxRetries: 1
 
 matrix:
   tests: ["Test_1", "Test_2", "Test_3" ]
-  browser: ["Chrome"]
+  browser: ["Chrome", "MicrosoftEdge"]
   version: [latest]
   os: [win]
 
