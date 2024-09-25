@@ -1,7 +1,5 @@
-name: HyperExecute-Matrix
+name: HyperExecute Matrix Mode
 on:
-  schedule:
-    - cron: "4 5 * * 1"
   workflow_dispatch:
     inputs:
       username:
@@ -12,10 +10,10 @@ on:
         required: true
       sampleRepoLink:
         description: Link to the HyperExecute sample repo
-        default: https://github.com/john190501/hyp-matrix-mode
+        default: https://github.com/john190501/hyp-matrix-mode/
         required: true
 jobs:
-  HyperExecute-Selenium:
+  HyperExecute-Matrix-Mode:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     strategy:
@@ -26,16 +24,16 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v2
 
-      - name: Execcuting the Project
+      - name: Starting CLI testing
         shell: bash
         run: |
-          echo "Step 1: Downloading the Sample Project"
+          echo "STEP 1 ) Downloading sample suite"
           git clone ${{ github.event.inputs.sampleRepoLink }}
-          echo "Step 2: Download the HyperExecute CLI"
-          cd hyp-matrix-mode
-          curl https://downloads.lambdatest.com/hyperexecute/windows/hyperexecute.exe -o hyperexecute.exe
-          echo "Step 3: Setting up the Credentials"
-          export LT_USERNAME=${{ github.event.inputs.username }}
-          export LT_ACCESS_KEY=${{ github.event.inputs.accessKey }}
-          echo "Step 4: Execute the Test Suite"
-          ./hyperexecute --user $LT_USERNAME --key $LT_ACCESS_KEY --config yaml/hyp-matrix-mode-win.yaml
+          echo "STEP 2) Download CLI and setting environment variables"
+              cd hyp-matrix-mode
+              curl https://downloads.lambdatest.com/hyperexecute/windows/hyperexecute.exe -o hyperexecute.exe
+              export LT_USERNAME=${{ github.event.inputs.username }}
+              export LT_ACCESS_KEY=${{ github.event.inputs.accessKey }}
+              echo $LT_USERNAME 
+              echo $LT_ACCESS_KEY
+              ./hyperexecute --user $LT_USERNAME --key $LT_ACCESS_KEY --config yaml/hyp-matrix-mode-win.yaml
