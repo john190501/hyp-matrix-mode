@@ -14,7 +14,7 @@ on:
         default: https://github.com/john190501/hyp-matrix-mode/
         required: true
   schedule:
-    - cron: '20 13 * * 0'  # Triggers every second Sunday at 7:20 PM IST (13:50 UTC)
+    - cron: '20 13 * * 0'  # Triggers every Sunday at 7:20 PM IST (13:50 UTC)
 
 jobs:
   HyperExecute-Matrix-Mode:
