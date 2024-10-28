@@ -38,7 +38,6 @@ jobs:
           cd hyp-matrix-mode
           curl https://downloads.lambdatest.com/hyperexecute/windows/hyperexecute.exe -o hyperexecute.exe
 
-          # Set environment variables from inputs or fall back to secrets
           LT_USERNAME=${{ github.event.inputs.username || secrets.LT_USERNAME }}
           LT_ACCESS_KEY=${{ github.event.inputs.accessKey || secrets.LT_ACCESS_KEY }}
 
